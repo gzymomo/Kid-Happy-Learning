@@ -192,10 +192,12 @@
     }
   }
 
-  function showHomeView() {
-    document.getElementById('homeView').classList.remove('hidden');
-    document.getElementById('learningView').classList.add('hidden');
-  }
+   function showHomeView() {
+     document.getElementById('homeView').classList.remove('hidden');
+     document.getElementById('learningView').classList.add('hidden');
+     // Remove car theme when returning to home view
+     document.documentElement.classList.remove('car-theme');
+   }
 
   function showLearningView(category) {
     document.getElementById('homeView').classList.add('hidden');
@@ -613,17 +615,17 @@
       }
     });
 
-    var categoryCards = document.querySelectorAll('.category-card');
-    categoryCards.forEach(function (card) {
-      card.addEventListener('click', function () {
-        var category = card.getAttribute('data-category');
-        var name = CATEGORY_NAMES[category];
-        var welcomeText = '欢迎小朋友来到' + name;
-        speak(welcomeText, 'zh-CN');
-        setTimeout(function () {
-          showLearningView(category);
-        }, 1500);
-      });
+     var categoryCards = document.querySelectorAll('.category-card');
+     categoryCards.forEach(function (card) {
+       card.addEventListener('click', function () {
+         var category = card.getAttribute('data-category');
+         var name = CATEGORY_NAMES[category];
+         var welcomeText = '欢迎小朋友来到' + name;
+         speak(welcomeText, 'zh-CN');
+         // Apply car theme immediately
+         document.documentElement.classList.add('car-theme');
+         showLearningView(category);
+       });
 
       card.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') {

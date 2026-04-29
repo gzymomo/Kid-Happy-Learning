@@ -1032,3 +1032,145 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Car Theme Styles */
+.car-theme body {
+  background: linear-gradient(180deg, #87CEEB 0%, #7EC0EE 30%, #2E8B57 60%, #8FBC8F 80%, #F0E68C 100%);
+  /* Sky to road gradient */
+}
+
+.car-theme .cartoon-bg {
+  display: none;
+}
+
+.car-theme .home-title {
+  color: #FFFFFF;
+  text-shadow: 3px 3px 0 #000000, 6px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.car-theme .category-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: #FFFFFF;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.car-theme .category-card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  transform: translateY(-10px) scale(1.03);
+}
+
+.car-theme .category-emoji {
+  font-size: 70px;
+}
+
+.car-theme .category-name {
+  color: #2F4F4F;
+  font-size: var(--font-size-lg);
+}
+
+.car-theme .category-deco {
+  font-size: var(--font-size-lg);
+  color: #FFD700;
+}
+
+.car-theme .learning-header {
+  background: rgba(135, 206, 235, 0.8);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.car-theme .back-btn {
+  background: #FF4500;
+  color: #FFFFFF;
+}
+
+.car-theme .learning-title {
+  color: #FFFFFF;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.car-theme .stars-display {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  box-shadow: 0 2px 10px rgba(255, 165, 0, 0.4);
+}
+
+.car-theme .card {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.car-theme .card:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px) scale(1.01);
+}
+
+.car-theme .card:active {
+  transform: scale(0.97);
+}
+
+.car-theme .card-emoji {
+  font-size: 42px;
+}
+
+.car-theme .card-main {
+  font-size: var(--font-size-lg);
+  color: #2F4F4F;
+}
+
+.car-theme .card-sub {
+  font-size: var(--font-size-base);
+  color: #555555;
+}
+
+.car-theme .quiz-option {
+  background: rgba(255, 255, 255, 0.8);
+  border: 3px solid rgba(255, 255, 255, 0.7);
+}
+
+.car-theme .quiz-option.correct {
+  background: rgba(144, 238, 144, 0.3);
+  border-color: #90EE90;
+}
+
+.car-theme .quiz-option.wrong {
+  background: rgba(255, 182, 193, 0.3);
+  border-color: #FFB6C1;
+}
+
+.car-theme .quiz-option.highlight {
+  background: rgba(255, 255, 224, 0.3);
+  border-color: #FFFFE0;
+}
+
+.car-theme .quiz-next-btn {
+  background: #32CD32;
+}
+
+.car-theme .privacy-accept-btn {
+  background: #32CD32;
+}
+
+.car-theme .info-btn {
+  background: #1E90FF;
+}
+
+.car-theme .danger-btn {
+  background: #FF6347;
+}
+
+.car-theme .toggle-switch input:checked + .toggle-slider {
+  background: #32CD32;
+}
+
+.car-theme .stat-value {
+  color: #FFFFFF;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.car-theme .parent-section h4 {
+  color: #FFFFFF;
+}
+
+.car-theme .about-info {
+  color: #FFFFFF;
+}
