@@ -1,0 +1,33 @@
+name: Scheduled OpenCode Task
+
+on:
+  schedule:
+    - cron: "0 7 * * *" 
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  opencode:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Run OpenCode
+        uses: anomalyco/opencode/github@latest
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+        with:
+          model: opencode/big-pickle
+          prompt: |
+            Review the requirements and implementation of the project:
+            - Check for any discrepancies between the requirements and the code
+            - Identify any potential issues or areas for improvement in the implementation
+            - Suggest any additional features or optimizations that could be made
+            If you find issues worth addressing, open an issue to track them.
