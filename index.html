@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="KID Happy Learning - 儿童启蒙学习系统">
+  <meta name="theme-color" content="#4A90D9">
+  <title>KID Happy Learning - 快乐学习</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <div id="app">
+    <header class="header">
+      <div class="header-content">
+        <div class="logo" id="logo" aria-label="KID Happy Learning Logo">
+          <span class="logo-text">KID</span>
+          <span class="logo-subtitle">Happy Learning</span>
+        </div>
+        <div class="stars-display" id="starsDisplay" aria-label="星星数量">
+          <span class="star-icon">⭐</span>
+          <span class="star-count" id="starCount">0</span>
+        </div>
+        <button class="quiz-btn" id="quizBtn" aria-label="魔法挑战">
+          <span class="quiz-icon">🎮</span>
+          <span class="quiz-text">魔法挑战</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <section class="module-section" id="lettersSection">
+        <h2 class="module-title">🔤 字母乐园</h2>
+        <div class="cards-grid" id="lettersGrid"></div>
+      </section>
+
+      <section class="module-section" id="wordsSection">
+        <h2 class="module-title">🍎 单词小屋</h2>
+        <div class="cards-grid" id="wordsGrid"></div>
+      </section>
+
+      <section class="module-section" id="chineseSection">
+        <h2 class="module-title">🇨🇳 汉字启蒙</h2>
+        <div class="cards-grid" id="chineseGrid"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <span class="version">v1.0.0</span>
+        <div class="footer-triggers" id="footerTriggers">
+          <span class="trigger-dot" data-click="0"></span>
+          <span class="trigger-dot" data-click="1"></span>
+          <span class="trigger-dot" data-click="2"></span>
+          <span class="trigger-dot" data-click="3"></span>
+          <span class="trigger-dot" data-click="4"></span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div class="modal-overlay" id="storyModal" aria-hidden="true">
+    <div class="modal story-modal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="storyModalClose" aria-label="关闭">&times;</button>
+      <div class="story-content">
+        <div class="story-emoji" id="storyEmoji"></div>
+        <div class="story-text" id="storyText"></div>
+        <button class="story-audio-btn" id="storyAudioBtn" aria-label="播放故事语音">
+          🔊 听故事
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="quizModal" aria-hidden="true">
+    <div class="modal quiz-modal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="quizModalClose" aria-label="关闭">&times;</button>
+      <div class="quiz-content">
+        <h3 class="quiz-title">🎮 魔法挑战</h3>
+        <div class="quiz-progress" id="quizProgress"></div>
+        <div class="quiz-question" id="quizQuestion"></div>
+        <div class="quiz-emoji" id="quizEmoji"></div>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-feedback" id="quizFeedback" aria-live="polite"></div>
+        <button class="quiz-next-btn" id="quizNextBtn" aria-label="下一题">下一题 ➡️</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="privacyModal" aria-hidden="true">
+    <div class="modal privacy-modal" role="dialog" aria-modal="true">
+      <h3 class="privacy-title">🔒 隐私声明</h3>
+      <div class="privacy-content">
+        <p>亲爱的家长：</p>
+        <p>本应用专为3-5岁儿童设计，我们高度重视您孩子的隐私保护：</p>
+        <ul>
+          <li>本应用<strong>不收集</strong>任何个人身份信息（如姓名、生日、照片等）</li>
+          <li>学习进度和星星数仅存储在您的设备本地（localStorage），<strong>不会上传到任何服务器</strong></li>
+          <li>本应用<strong>不含任何广告</strong>，也没有第三方追踪代码</li>
+          <li>您可以随时在家长区清除所有本地数据</li>
+          <li>本地存储的数据会在30天后自动过期</li>
+        </ul>
+        <p>使用本应用即表示您同意上述隐私政策。如有任何问题，请联系我们。</p>
+      </div>
+      <button class="privacy-accept-btn" id="privacyAcceptBtn">我知道了 👍</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="parentModal" aria-hidden="true">
+    <div class="modal parent-modal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="parentModalClose" aria-label="关闭">&times;</button>
+      <h3 class="parent-title">👨‍👩‍👧 家长区</h3>
+      <div class="parent-content">
+        <div class="parent-section">
+          <h4>📊 学习进度</h4>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <span class="stat-value" id="statStars">0</span>
+              <span class="stat-label">总星星数</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value" id="statLetters">0/7</span>
+              <span class="stat-label">字母学习</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value" id="statWords">0/6</span>
+              <span class="stat-label">单词学习</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value" id="statChinese">0/6</span>
+              <span class="stat-label">汉字学习</span>
+            </div>
+          </div>
+        </div>
+        <div class="parent-section">
+          <h4>⚙️ 设置</h4>
+          <label class="toggle-switch">
+            <input type="checkbox" id="highContrastToggle">
+            <span class="toggle-slider"></span>
+            <span class="toggle-label">高对比度模式</span>
+          </label>
+        </div>
+        <div class="parent-actions">
+          <button class="action-btn danger-btn" id="clearDataBtn">🗑️ 清除所有数据</button>
+          <button class="action-btn info-btn" id="showPrivacyBtn">📋 查看隐私声明</button>
+          <div class="about-info">
+            <span>版本：v1.0.0</span>
+            <span>联系：parent@kidlearning.app</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reward-animation" id="rewardAnimation" aria-hidden="true">
+    <div class="reward-star">⭐</div>
+    <div class="reward-text" id="rewardText"></div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-04-29",
+    "totalStars": 0
+  },
+  "letters": [
+    {
+      "id": "letter-A",
+      "letter": "A",
+      "word": "Apple",
+      "emoji": "🍎",
+      "story": "小A发现了一颗红红的苹果，咬一口，脆甜脆甜的！",
+      "audioFile": "audio/letters/A.mp3",
+      "storyAudioFile": "audio/stories/A.mp3"
+    },
+    {
+      "id": "letter-B",
+      "letter": "B",
+      "word": "Bird",
+      "emoji": "🐦",
+      "story": "小鸟B在天空中自由自在地飞翔，唱着快乐的歌。",
+      "audioFile": "audio/letters/B.mp3",
+      "storyAudioFile": "audio/stories/B.mp3"
+    },
+    {
+      "id": "letter-C",
+      "letter": "C",
+      "word": "Cat",
+      "emoji": "🐱",
+      "story": "小猫C蜷缩在温暖的阳光下，美美地睡了一觉。",
+      "audioFile": "audio/letters/C.mp3",
+      "storyAudioFile": "audio/stories/C.mp3"
+    },
+    {
+      "id": "letter-D",
+      "letter": "D",
+      "word": "Dog",
+      "emoji": "🐶",
+      "story": "小狗D在草地上追蝴蝶，跑呀跑呀，开心极了！",
+      "audioFile": "audio/letters/D.mp3",
+      "storyAudioFile": "audio/stories/D.mp3"
+    },
+    {
+      "id": "letter-E",
+      "letter": "E",
+      "word": "Elephant",
+      "emoji": "🐘",
+      "story": "大象E用它长长的鼻子喷水玩，溅起了一片水花。",
+      "audioFile": "audio/letters/E.mp3",
+      "storyAudioFile": "audio/stories/E.mp3"
+    },
+    {
+      "id": "letter-F",
+      "letter": "F",
+      "word": "Fish",
+      "emoji": "🐟",
+      "story": "小鱼F在清澈的小河里游来游去，尾巴一摆一摆的。",
+      "audioFile": "audio/letters/F.mp3",
+      "storyAudioFile": "audio/stories/F.mp3"
+    },
+    {
+      "id": "letter-G",
+      "letter": "G",
+      "word": "Giraffe",
+      "emoji": "🦒",
+      "story": "长颈鹿G伸长脖子，吃到了树上最嫩的叶子。",
+      "audioFile": "audio/letters/G.mp3",
+      "storyAudioFile": "audio/stories/G.mp3"
+    }
+  ],
+  "words": [
+    {
+      "id": "word-cat",
+      "word": "cat",
+      "emoji": "🐱",
+      "translation": "猫",
+      "audioFile": "audio/words/cat.mp3"
+    },
+    {
+      "id": "word-dog",
+      "word": "dog",
+      "emoji": "🐶",
+      "translation": "狗",
+      "audioFile": "audio/words/dog.mp3"
+    },
+    {
+      "id": "word-sun",
+      "word": "sun",
+      "emoji": "☀️",
+      "translation": "太阳",
+      "audioFile": "audio/words/sun.mp3"
+    },
+    {
+      "id": "word-apple",
+      "word": "apple",
+      "emoji": "🍎",
+      "translation": "苹果",
+      "audioFile": "audio/words/apple.mp3"
+    },
+    {
+      "id": "word-bird",
+      "word": "bird",
+      "emoji": "🐦",
+      "translation": "鸟",
+      "audioFile": "audio/words/bird.mp3"
+    },
+    {
+      "id": "word-fish",
+      "word": "fish",
+      "emoji": "🐟",
+      "translation": "鱼",
+      "audioFile": "audio/words/fish.mp3"
+    }
+  ],
+  "chinese": [
+    {
+      "id": "cn-人",
+      "character": "人",
+      "pinyin": "rén",
+      "meaning": "people",
+      "phrases": ["人口", "大人", "小人"],
+      "emoji": "👤",
+      "audioFile": "audio/chinese/人.mp3"
+    },
+    {
+      "id": "cn-口",
+      "character": "口",
+      "pinyin": "kǒu",
+      "meaning": "mouth",
+      "phrases": ["口袋", "门口", "大口"],
+      "emoji": "👄",
+      "audioFile": "audio/chinese/口.mp3"
+    },
+    {
+      "id": "cn-日",
+      "character": "日",
+      "pinyin": "rì",
+      "meaning": "sun/day",
+      "phrases": ["日出", "生日", "日子"],
+      "emoji": "☀️",
+      "audioFile": "audio/chinese/日.mp3"
+    },
+    {
+      "id": "cn-月",
+      "character": "月",
+      "pinyin": "yuè",
+      "meaning": "moon/month",
+      "phrases": ["月亮", "月光", "一月"],
+      "emoji": "🌙",
+      "audioFile": "audio/chinese/月.mp3"
+    },
+    {
+      "id": "cn-水",
+      "character": "水",
+      "pinyin": "shuǐ",
+      "meaning": "water",
+      "phrases": ["水果", "喝水", "河水"],
+      "emoji": "💧",
+      "audioFile": "audio/chinese/水.mp3"
+    },
+    {
+      "id": "cn-火",
+      "character": "火",
+      "pinyin": "huǒ",
+      "meaning": "fire",
+      "phrases": ["火车", "大火", "火红"],
+      "emoji": "🔥",
+      "audioFile": "audio/chinese/火.mp3"
+    }
+  ],
+  "rewards": {
+    "starAudio": "audio/effects/star.mp3",
+    "correctAudio": "audio/effects/correct.mp3",
+    "wrongAudio": "audio/effects/wrong.mp3",
+    "encouragePhrases": ["Good job!", "你真棒！", "太厉害了！"]
+  }
+}
