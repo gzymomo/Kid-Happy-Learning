@@ -4,50 +4,62 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="description" content="KID Happy Learning - 儿童启蒙学习系统">
-  <meta name="theme-color" content="#4A90D9">
+  <meta name="theme-color" content="#FF6B9D">
   <title>KID Happy Learning - 快乐学习</title>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
   <div id="app">
-    <header class="header">
-      <div class="header-content">
-        <div class="logo" id="logo" aria-label="KID Happy Learning Logo">
-          <span class="logo-text">KID</span>
-          <span class="logo-subtitle">Happy Learning</span>
-        </div>
-        <div class="stars-display" id="starsDisplay" aria-label="星星数量">
-          <span class="star-icon">⭐</span>
-          <span class="star-count" id="starCount">0</span>
-        </div>
-        <button class="quiz-btn" id="quizBtn" aria-label="魔法挑战">
-          <span class="quiz-icon">🎮</span>
-          <span class="quiz-text">魔法挑战</span>
-        </button>
-      </div>
-    </header>
+    <div class="cartoon-bg">
+      <div class="cloud cloud-1">☁️</div>
+      <div class="cloud cloud-2">☁️</div>
+      <div class="cloud cloud-3">☁️</div>
+      <div class="sun">☀️</div>
+      <div class="rainbow">🌈</div>
+    </div>
 
     <main class="main-content">
-      <section class="module-section" id="lettersSection">
-        <h2 class="module-title">🔤 字母乐园</h2>
-        <div class="cards-grid" id="lettersGrid"></div>
+      <section class="home-view" id="homeView">
+        <h1 class="home-title">欢迎小朋友! 🎉</h1>
+        <div class="category-cards" id="categoryCards">
+          <div class="category-card card-letters" data-category="letters" tabindex="0" role="button" aria-label="字母乐园">
+            <div class="category-emoji">🔤</div>
+            <div class="category-name">字母乐园</div>
+            <div class="category-deco">✨</div>
+          </div>
+          <div class="category-card card-words" data-category="words" tabindex="0" role="button" aria-label="单词小屋">
+            <div class="category-emoji">🏠</div>
+            <div class="category-name">单词小屋</div>
+            <div class="category-deco">🌟</div>
+          </div>
+          <div class="category-card card-chinese" data-category="chinese" tabindex="0" role="button" aria-label="汉字启蒙">
+            <div class="category-emoji">🇨🇳</div>
+            <div class="category-name">汉字启蒙</div>
+            <div class="category-deco">🎈</div>
+          </div>
+        </div>
       </section>
 
-      <section class="module-section" id="wordsSection">
-        <h2 class="module-title">🍎 单词小屋</h2>
-        <div class="cards-grid" id="wordsGrid"></div>
-      </section>
-
-      <section class="module-section" id="chineseSection">
-        <h2 class="module-title">🇨🇳 汉字启蒙</h2>
-        <div class="cards-grid" id="chineseGrid"></div>
+      <section class="learning-view hidden" id="learningView">
+        <div class="learning-header">
+          <button class="back-btn" id="backBtn" aria-label="返回主页">
+            <span class="back-icon">🏠</span>
+            <span class="back-text">回家</span>
+          </button>
+          <h2 class="learning-title" id="learningTitle"></h2>
+          <div class="stars-display" id="starsDisplay" aria-label="星星数量">
+            <span class="star-icon">⭐</span>
+            <span class="star-count" id="starCount">0</span>
+          </div>
+        </div>
+        <div class="cards-grid" id="learningGrid"></div>
       </section>
     </main>
 
     <footer class="footer">
       <div class="footer-content">
-        <span class="version">v1.0.0</span>
+        <span class="version">v2.0.0</span>
         <div class="footer-triggers" id="footerTriggers">
           <span class="trigger-dot" data-click="0"></span>
           <span class="trigger-dot" data-click="1"></span>
@@ -144,7 +156,7 @@
           <button class="action-btn danger-btn" id="clearDataBtn">🗑️ 清除所有数据</button>
           <button class="action-btn info-btn" id="showPrivacyBtn">📋 查看隐私声明</button>
           <div class="about-info">
-            <span>版本：v1.0.0</span>
+            <span>版本：v2.0.0</span>
             <span>联系：parent@kidlearning.app</span>
           </div>
         </div>
