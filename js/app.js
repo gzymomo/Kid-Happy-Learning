@@ -4,16 +4,22 @@
   const STORAGE_KEY = 'kidHappyLearning';
   const STORAGE_VERSION = '1.0.0';
   const STARS_EXPIRY_MS = 30 * 24 * 60 * 60 * 1000;
-  const LOGO_LONG_PRESS_MS = 3000;
   const FOOTER_CLICK_COUNT = 5;
+
+  const CATEGORY_NAMES = {
+    letters: '字母乐园',
+    words: '单词小屋',
+    chinese: '汉字启蒙'
+  };
 
   let content = null;
   let audioManager = null;
   let state = null;
   let quizState = null;
   let isTouchDevice = true;
-  let logoPressTimer = null;
   let footerClickCount = 0;
+  let currentStoryLetterId = null;
+  let isSpeaking = false;
 
   function getStorage() {
     try {
@@ -62,7 +68,8 @@
   }
 
   function updateStarsDisplay() {
-    document.getElementById('starCount').textContent = state.stars;
+    const el = document.getElementById('starCount');
+    if (el) el.textContent = state.stars;
   }
 
   function addStar() {
@@ -70,6 +77,35 @@
     state.starsTimestamp = Date.now();
     saveStorage();
     updateStarsDisplay();
+  }
+
+  function speak(text, lang) {
+    if (!('speechSynthesis' in window)) {
+      return;
+    }
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = lang || 'zh-CN';
+    utterance.rate = 0.85;
+    utterance.pitch = 1.2;
+    utterance.onstart = function () {
+      isSpeaking = true;
+    };
+    utterance.onend = function () {
+      isSpeaking = false;
+    };
+    utterance.onerror = function () {
+      isSpeaking = false;
+    };
+    window.speechSynthesis.speak(utterance);
+  }
+
+  function playAudioOrSpeak(audioKey, text, lang) {
+    if (audioManager && audioManager.sounds && audioManager.sounds[audioKey]) {
+      audioManager.play(audioKey);
+    } else {
+      speak(text, lang);
+    }
   }
 
   function AudioManager() {
@@ -156,20 +192,44 @@
     }
   }
 
-  function renderLetters() {
-    const grid = document.getElementById('lettersGrid');
+  function showHomeView() {
+    document.getElementById('homeView').classList.remove('hidden');
+    document.getElementById('learningView').classList.add('hidden');
+  }
+
+  function showLearningView(category) {
+    document.getElementById('homeView').classList.add('hidden');
+    document.getElementById('learningView').classList.remove('hidden');
+
+    var titleEl = document.getElementById('learningTitle');
+    titleEl.textContent = CATEGORY_NAMES[category];
+
+    var grid = document.getElementById('learningGrid');
     grid.innerHTML = '';
+
+    if (category === 'letters') {
+      renderLetters(grid);
+    } else if (category === 'words') {
+      renderWords(grid);
+    } else if (category === 'chinese') {
+      renderChinese(grid);
+    }
+  }
+
+  function renderLetters(grid) {
     content.letters.forEach(function (letter) {
-      const card = createCard(
+      var card = createCard(
         'letter-card',
         letter.emoji,
         letter.letter,
         letter.word,
         function () {
-          audioManager.play(letter.id);
+          playAudioOrSpeak(letter.id, letter.letter, 'en-US');
           state.visitedLetters.push(letter.id);
           saveStorage();
-          showStory(letter);
+          setTimeout(function () {
+            showStory(letter);
+          }, 1000);
         }
       );
       card.setAttribute('aria-label', '字母 ' + letter.letter + ' - ' + letter.word);
@@ -177,17 +237,15 @@
     });
   }
 
-  function renderWords() {
-    const grid = document.getElementById('wordsGrid');
-    grid.innerHTML = '';
+  function renderWords(grid) {
     content.words.forEach(function (word) {
-      const card = createCard(
+      var card = createCard(
         'word-card',
         word.emoji,
         word.word,
         word.translation,
         function () {
-          audioManager.play(word.id);
+          playAudioOrSpeak(word.id, word.word, 'en-US');
           state.visitedWords.push(word.id);
           saveStorage();
         }
@@ -197,11 +255,9 @@
     });
   }
 
-  function renderChinese() {
-    const grid = document.getElementById('chineseGrid');
-    grid.innerHTML = '';
+  function renderChinese(grid) {
     content.chinese.forEach(function (cn) {
-      const card = document.createElement('div');
+      var card = document.createElement('div');
       card.className = 'card chinese-card';
       card.tabIndex = 0;
       card.innerHTML =
@@ -210,7 +266,7 @@
         '<div class="card-sub">' + cn.pinyin + '</div>' +
         '<div class="card-phrase">' + cn.phrases.map(function (p) { return '<span>' + p + '</span>'; }).join('') + '</div>';
       card.addEventListener('click', function () {
-        audioManager.play(cn.id);
+        playAudioOrSpeak(cn.id, cn.character, 'zh-CN');
         state.visitedChinese.push(cn.id);
         saveStorage();
       });
@@ -226,7 +282,7 @@
   }
 
   function createCard(typeClass, emoji, mainText, subText, onClick) {
-    const card = document.createElement('div');
+    var card = document.createElement('div');
     card.className = 'card ' + typeClass;
     card.tabIndex = 0;
     card.innerHTML =
@@ -244,7 +300,8 @@
   }
 
   function showStory(letter) {
-    const modal = document.getElementById('storyModal');
+    currentStoryLetterId = letter.id;
+    var modal = document.getElementById('storyModal');
     document.getElementById('storyEmoji').textContent = letter.emoji;
     document.getElementById('storyText').textContent = letter.story;
     modal.setAttribute('aria-hidden', 'false');
@@ -253,14 +310,18 @@
   }
 
   function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
+    var modal = document.getElementById(modalId);
     modal.classList.remove('active');
     modal.setAttribute('aria-hidden', 'true');
-    audioManager.stop();
+    if (audioManager) audioManager.stop();
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+    isSpeaking = false;
   }
 
   function showRewardAnimation(text) {
-    const el = document.getElementById('rewardAnimation');
+    var el = document.getElementById('rewardAnimation');
     document.getElementById('rewardText').textContent = text;
     el.classList.add('active');
     setTimeout(function () {
@@ -401,6 +462,7 @@
       var phrase = phrases[Math.floor(Math.random() * phrases.length)];
       feedbackEl.textContent = '⭐ ' + phrase;
       showRewardAnimation(phrase);
+      speak(phrase);
 
       quizState.consecutiveCorrect[q.id] = (quizState.consecutiveCorrect[q.id] || 0) + 1;
       quizState.consecutiveWrong[q.id] = 0;
@@ -480,31 +542,6 @@
     }
   }
 
-  function initLogoLongPress() {
-    var logo = document.getElementById('logo');
-
-    function startPress() {
-      logoPressTimer = setTimeout(function () {
-        showParentModal();
-        logoPressTimer = null;
-      }, LOGO_LONG_PRESS_MS);
-    }
-
-    function cancelPress() {
-      if (logoPressTimer) {
-        clearTimeout(logoPressTimer);
-        logoPressTimer = null;
-      }
-    }
-
-    logo.addEventListener('mousedown', startPress);
-    logo.addEventListener('touchstart', startPress);
-    logo.addEventListener('mouseup', cancelPress);
-    logo.addEventListener('mouseleave', cancelPress);
-    logo.addEventListener('touchend', cancelPress);
-    logo.addEventListener('touchcancel', cancelPress);
-  }
-
   function initFooterTriggers() {
     var triggers = document.getElementById('footerTriggers');
     triggers.addEventListener('click', function () {
@@ -522,32 +559,21 @@
     });
 
     document.getElementById('storyAudioBtn').addEventListener('click', function () {
-      if (quizState && quizState.currentQuestion && quizState.currentQuestion.type === 'letter') {
+      if (currentStoryLetterId) {
         var letter = content.letters.find(function (l) {
-          return l.id === quizState.currentQuestion.id;
+          return l.id === currentStoryLetterId;
         });
         if (letter && letter.storyAudioFile) {
-          audioManager.play(letter.id + '-story');
+          audioManager.play(currentStoryLetterId + '-story');
+        } else if (letter && letter.story) {
+          speak(letter.story, 'zh-CN');
         }
-      }
-      var currentStoryLetter = document.getElementById('storyModal').getAttribute('data-letter-id');
-      if (currentStoryLetter) {
-        audioManager.play(currentStoryLetter + '-story');
       }
     });
 
     document.getElementById('storyModal').addEventListener('click', function (e) {
       if (e.target === this) closeModal('storyModal');
     });
-
-    var storyModal = document.getElementById('storyModal');
-    var origShowStory = showStory;
-    showStory = function (letter) {
-      storyModal.setAttribute('data-letter-id', letter.id);
-      origShowStory(letter);
-    };
-
-    document.getElementById('quizBtn').addEventListener('click', showQuiz);
 
     document.getElementById('quizModalClose').addEventListener('click', function () {
       closeModal('quizModal');
@@ -580,6 +606,33 @@
       toggleHighContrast(e.target.checked);
     });
 
+    document.getElementById('backBtn').addEventListener('click', function () {
+      showHomeView();
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    });
+
+    var categoryCards = document.querySelectorAll('.category-card');
+    categoryCards.forEach(function (card) {
+      card.addEventListener('click', function () {
+        var category = card.getAttribute('data-category');
+        var name = CATEGORY_NAMES[category];
+        var welcomeText = '欢迎小朋友来到' + name;
+        speak(welcomeText, 'zh-CN');
+        setTimeout(function () {
+          showLearningView(category);
+        }, 1500);
+      });
+
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
+
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
         var modals = ['storyModal', 'quizModal', 'privacyModal', 'parentModal'];
@@ -609,9 +662,6 @@
       .then(function (data) {
         content = data;
         initAudio();
-        renderLetters();
-        renderWords();
-        renderChinese();
         initQuiz();
       })
       .catch(function (err) {
@@ -619,7 +669,6 @@
       });
 
     initEventListeners();
-    initLogoLongPress();
     initFooterTriggers();
 
     if (!state.privacyAccepted) {
