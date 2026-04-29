@@ -37,6 +37,19 @@
   --primary-green: #1E8449;
 }
 
+:root.car-theme {
+  --bg-light: #F0F8FF;
+  --bg-card: #E6F3FF;
+  --text-dark: #2C3E50;
+  --text-light: #5D6D7E;
+  --primary-blue: #154360;
+  --primary-red: #C0392B;
+  --primary-yellow: #F1C40F;
+  --primary-green: #1E8449;
+  --car-accent: #E74C3C;
+  --road-color: #2C3E50;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -51,6 +64,147 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+/* Car theme specific styles */
+.car-theme body {
+  background: linear-gradient(180deg, #87CEEB 0%, #B8E6FF 25%, var(--road-color) 50%, #8B4513 75%, var(--bg-light) 90%);
+}
+
+.car-theme .cartoon-bg {
+  display: none;
+}
+
+.car-theme .category-card {
+  border: 4px solid var(--car-accent);
+  background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(230,243,255,0.7) 100%);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.car-theme .category-card::before {
+  background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(230,243,255,0.7) 100%);
+}
+
+.car-theme .category-card::after {
+  border-color: var(--car-accent);
+}
+
+.car-theme .category-card:hover {
+  transform: translateY(-15px) scale(1.05);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+}
+
+.car-theme .category-emoji {
+  font-size: 90px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.car-theme .category-name {
+  color: var(--car-accent);
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.car-theme .category-deco {
+  color: var(--car-accent);
+}
+
+.car-theme .home-title {
+  color: var(--car-accent);
+  text-shadow: 3px 3px 0 rgba(231,76,60,0.3), 6px 6px 0 rgba(0,0,0,0.1);
+}
+
+.car-theme .learning-header {
+  background: rgba(255,255,255,0.95);
+  border: 2px solid var(--car-accent);
+}
+
+.car-theme .learning-view {
+  background: linear-gradient(180deg, #ECF0F1 0%, #BDC3C7 100%);
+}
+
+.car-theme .cards-grid {
+  background: rgba(255,255,255,0.7);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.car-theme .back-btn {
+  background: var(--car-accent);
+}
+
+.car-theme .stars-display {
+  background: linear-gradient(135deg, #F1C40F, #E67E22);
+}
+
+.car-theme .card {
+  border: 3px solid var(--car-accent);
+  background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(230,243,255,0.7) 100%);
+}
+
+.car-theme .card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.car-theme .card:active {
+  transform: scale(0.95);
+}
+
+.car-theme .card-emoji {
+  font-size: 55px;
+}
+
+.car-theme .card-main {
+  color: var(--car-accent);
+}
+
+.car-theme .story-audio-btn {
+  background: var(--car-accent);
+}
+
+.car-theme .quiz-option {
+  border-color: var(--car-accent);
+}
+
+.car-theme .quiz-option.correct {
+  border-color: var(--primary-green);
+}
+
+.car-theme .quiz-option.wrong {
+  border-color: var(--primary-red);
+}
+
+.car-theme .quiz-option.highlight {
+  border-color: var(--primary-yellow);
+}
+
+.car-theme .quiz-next-btn {
+  background: var(--primary-green);
+}
+
+.car-theme .privacy-accept-btn {
+  background: var(--primary-green);
+}
+
+.car-theme .action-btn.danger-btn {
+  background: var(--primary-red);
+}
+
+.car-theme .action-btn.info-btn {
+  background: var(--primary-blue);
+}
+
+.car-theme .toggle-slider {
+  background: #BBB;
+}
+
+.car-theme .toggle-switch input:checked + .toggle-slider {
+  background: var(--primary-green);
+}
+
+.car-theme .footer {
+  background: rgba(255,255,255,0.9);
+  border-top: 2px solid var(--car-accent);
 }
 
 .cartoon-bg {

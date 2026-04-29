@@ -611,6 +611,8 @@
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
       }
+      // Remove car theme when going back to home view
+      document.documentElement.classList.remove('car-theme');
     });
 
     var categoryCards = document.querySelectorAll('.category-card');
@@ -620,9 +622,9 @@
         var name = CATEGORY_NAMES[category];
         var welcomeText = '欢迎小朋友来到' + name;
         speak(welcomeText, 'zh-CN');
-        setTimeout(function () {
-          showLearningView(category);
-        }, 1500);
+        showLearningView(category);
+        // Apply car theme
+        document.documentElement.classList.add('car-theme');
       });
 
       card.addEventListener('keydown', function (e) {
